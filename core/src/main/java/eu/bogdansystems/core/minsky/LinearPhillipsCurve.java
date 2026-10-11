@@ -9,12 +9,18 @@ package eu.bogdansystems.core.minsky;
 public record LinearPhillipsCurve(double slope, double neutralEmploymentRate) implements PhillipsCurve {
 
 	public LinearPhillipsCurve {
-		throw new UnsupportedOperationException("Please implement this");
+		if (!Double.isFinite(slope) || !Double.isFinite(neutralEmploymentRate)) {
+			throw new IllegalArgumentException(
+					"parameters must be finite, were slope=" + slope + ", neutralEmploymentRate=" + neutralEmploymentRate);
+		}
+		if (slope <= 0) {
+			throw new IllegalArgumentException("slope must be > 0 (wages rise with employment), was " + slope);
+		}
 	}
 
 	@Override
 	public double wageGrowthRate(double employmentRate) {
-		throw new UnsupportedOperationException("Please implement this");
+		return slope * (employmentRate - neutralEmploymentRate);
 	}
 
 }
