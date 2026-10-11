@@ -8,7 +8,7 @@ public class PingController {
 
 	@GetMapping("/ping")
 	public String ping() {
-		throw new UnsupportedOperationException("Please implement this");
+		return "hello world";
 	}
 
 }
